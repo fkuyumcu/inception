@@ -1,0 +1,76 @@
+# Hizmetlerin(Konteyner) ayarları
+services:
+
+  nginx:
+    # Oluşturulacak Konteyner Adı
+    container_name: nginx
+
+    # Dockerfile dosya yolu
+    build: ./nginx
+
+    # Konteyneri başlatmadan önce bağlı olduğu konteynerleri belirtir.
+    depends_on:
+      - wordpress
+    
+    # Dinlenilecek : Yönlendirilecek portlar
+    ports:
+      - 443:443
+    
+    # Dosyaların saklanacağı dizin
+    volumes:
+      - wordpress_data:/var/www/html
+
+    # Konteynerı otomatik olarak yeniden başlatır
+    restart: always
+
+    # Konteynerin bağlı olduğu ağ
+    networks:
+      - network
+
+  mariadb:
+    container_name: mariadb
+    build: ./mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - network
+    restart: always
+
+    # .env dosyasındaki verileri ortam değişkenlerine atar
+    env_file:
+      - .env
+
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    build:
+      context: ./wordpress
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - network
+
+# Hizmet verilerini saklar ve ana sistem ile bağlantı kurar.
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /Users/fkuyumcu/data/mysql
+      o: bind
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /Users/fkuyumcu/data/wordpress
+      o: bind
+
+# Varsayılan ağ sürücüsüne bağlanır
+networks:
+  network:
+    driver: bridge
