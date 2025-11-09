@@ -1,4 +1,4 @@
-DC := docker-compose -f docker-compose.yml
+DC := docker-compose -f srcs/docker-compose.yml
 
 all:
 	@mkdir -p ~/data/wordpress

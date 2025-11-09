@@ -6,7 +6,7 @@ services:
     container_name: nginx
 
     # Dockerfile dosya yolu
-    build: ./nginx
+    build: ./requirements/nginx
 
     # Konteyneri başlatmadan önce bağlı olduğu konteynerleri belirtir.
     depends_on:
@@ -29,7 +29,7 @@ services:
 
   mariadb:
     container_name: mariadb
-    build: ./mariadb
+    build: ./requirements/mariadb
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
@@ -45,7 +45,7 @@ services:
     depends_on:
       - mariadb
     build:
-      context: ./wordpress
+      context: ./requirements/wordpress
       dockerfile: Dockerfile
     restart: always
     env_file:
