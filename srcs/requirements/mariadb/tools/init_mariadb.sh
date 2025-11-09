@@ -13,14 +13,21 @@ until mysqladmin ping --silent; do
     sleep 2
 done
 
-# Run the initialization SQL
-mysql < /var/www/initial_db.sql
+# mysql'e root olarak bağlan, heredoc ile database, user oluştur
+mysql -u root << EOF
+CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
+CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+FLUSH PRIVILEGES;
+EOF
 
-# Remove the SQL file
-rm -f /var/www/initial_db.sql
+echo "DB Created Successfully"
+
+#Docker bir ana process (PID 1) bekler. Bu process biterse container kapanır.
 
 # Stop the background MariaDB
-mysqladmin shutdown
+mysqladmin -u root -p${MYSQL_ROOT_PASSWORD} shutdown
 
 # Start MariaDB in the foreground
 exec mysqld --user=mysql --datadir=/var/lib/mysql
