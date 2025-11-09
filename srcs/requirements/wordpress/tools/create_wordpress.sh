@@ -21,7 +21,7 @@ else
 		--dbhost=$MYSQL_HOSTNAME \
 		--path=/var/www/html
 
-	# Install WordPress
+	# wp ilk kurulurken root kullanıcısını envden çekiyor, yani otomatik olarak kullanıcı oluşturulmalı
 	wp core install --allow-root \
 		--url=$DOMAIN \
 		--title="$brand" \
@@ -30,7 +30,16 @@ else
 		--admin_email=$wp_user_email \
 		--path=/var/www/html
 
+	# manuel olarak ikinci kullanıcı oluşturuyorum
+	wp user create $wp_user2_login $wp_user2_email \
+		--role=editor \
+		--user_pass=$wp_user2_pwd \
+		--allow-root \
+		--path=/var/www/html
+
 	echo "WordPress installation completed!"
+	echo "Admin user: $login"
+	echo "Second user: $wp_user2_login (Editor)"
 fi
 
 exec "$@"

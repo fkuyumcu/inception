@@ -1,0 +1,25 @@
+# Git files
+.git
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database files (should not be in build context)
+*.sql.backup
+*.sql.gz
+
+# Logs
+*.log

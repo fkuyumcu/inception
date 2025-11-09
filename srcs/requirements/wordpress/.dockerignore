@@ -1,0 +1,26 @@
+# Git files
+.git
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# WordPress files (downloaded during build)
+wordpress/
+*.tar.gz
+latest.tar.gz
+
+# Logs
+*.log
