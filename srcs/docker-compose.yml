@@ -2,28 +2,15 @@
 services:
 
   nginx:
-    # Oluşturulacak Konteyner Adı
     container_name: nginx
-
-    # Dockerfile dosya yolu
     build: ./requirements/nginx
-
-    # Konteyneri başlatmadan önce bağlı olduğu konteynerleri belirtir.
     depends_on:
       - wordpress
-    
-    # Dinlenilecek : Yönlendirilecek portlar
     ports:
       - 443:443
-    
-    # Dosyaların saklanacağı dizin
     volumes:
       - wordpress_data:/var/www/html
-
-    # Konteynerı otomatik olarak yeniden başlatır
     restart: always
-
-    # Konteynerin bağlı olduğu ağ
     networks:
       - network
 
@@ -35,8 +22,6 @@ services:
     networks:
       - network
     restart: always
-
-    # .env dosyasındaki verileri ortam değişkenlerine atar
     env_file:
       - .env
 
@@ -61,16 +46,17 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /Users/fkuyumcu/data/mysql
+      device: /home/fkuyumcu/data/mysql
       o: bind
   wordpress_data:
     driver: local
     driver_opts:
       type: none
-      device: /Users/fkuyumcu/data/wordpress
+      device: /home/fkuyumcu/data/wordpress
       o: bind
 
 # Varsayılan ağ sürücüsüne bağlanır
 networks:
   network:
     driver: bridge
+
