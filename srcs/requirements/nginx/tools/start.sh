@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 if [ ! -f /etc/nginx/ssl/nginx.crt ]; then
