@@ -1,4 +1,3 @@
-# Hizmetlerin(Konteyner) ayarları
 services:
 
   nginx:
@@ -40,7 +39,7 @@ services:
     networks:
       - network
 
-# Hizmet verilerini saklar ve ana sistem ile bağlantı kurar.
+
 volumes:
   mariadb_data:
     driver: local
@@ -55,7 +54,6 @@ volumes:
       device: /home/fkuyumcu/data/wordpress
       o: bind
 
-# Varsayılan ağ sürücüsüne bağlanır
 networks:
   network:
     driver: bridge

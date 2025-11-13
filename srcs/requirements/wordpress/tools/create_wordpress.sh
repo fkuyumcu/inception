@@ -5,7 +5,6 @@ then
 	echo "Wordpress already downloaded"
 else
 
-######## MANDATORY ########
     echo "O Captain My Captain"
 	wget http://wordpress.org/latest.tar.gz
 	tar xfz latest.tar.gz

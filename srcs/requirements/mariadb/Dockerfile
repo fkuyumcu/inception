@@ -8,8 +8,8 @@ EXPOSE 3306
 #mariadb'nin default ayarlarını değiştirmek için yapıyoruz
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
-COPY ./tools/init_mariadb.sh /var/www/
+COPY ./tools/mariadb.sh /var/www/
 
-RUN chmod +x /var/www/init_mariadb.sh
+RUN chmod +x /var/www/mariadb.sh
 
-CMD ["/var/www/init_mariadb.sh"]
+CMD ["/var/www/mariadb.sh"]
