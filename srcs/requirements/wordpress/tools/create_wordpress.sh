@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 if [ -f ./wp-config.php ]
 then
 	echo "Wordpress already downloaded"
