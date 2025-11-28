@@ -136,9 +136,6 @@ To add a new service:
   make cc
   ```
 
-## License
-
-(Add your chosen license here, e.g. MIT, GPL-3.0, etc.)
 
 ## Author
 
